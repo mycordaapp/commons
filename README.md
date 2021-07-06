@@ -4,4 +4,4 @@
 
 ## What it does?
 
-Common helper and extension functions that can be reused anywhere 
+Common helper and Kotlin extension functions that can be reused anywhere 
