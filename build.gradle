@@ -1,5 +1,10 @@
 buildscript {
 
+    Properties versions = new Properties()
+    file("$projectDir/versions.properties").withInputStream { versions.load(it) }
+    ext.kotlinVersion = versions.getProperty("kotlinVersion")
+    ext.helpersVersion = versions.getProperty("helpersVersion")
+
     repositories {
         mavenCentral()
     }
@@ -26,7 +31,7 @@ targetCompatibility = 1.8
 // https://jitpack.io/com/github/mycordaapp/extensions/<version>
 //
 group "com.github.mycordaapp"
-version "0.0.1"
+version "$helpersVersion"
 
 repositories {
     mavenCentral()
@@ -51,8 +56,9 @@ jar {
 
 dependencies {
     implementation("com.github.jitpack:gradle-simple:1.0")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.71"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
+    testCompile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     testCompile("com.natpryce:hamkrest:1.7.0.0")
     testCompile("junit:junit:4.12")
 }

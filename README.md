@@ -5,3 +5,7 @@
 ## What it does?
 
 Common helper and Kotlin extension functions that can be reused anywhere 
+
+## Adding as a dependency 
+
+The code is deployed to 
