@@ -30,7 +30,7 @@ apply plugin: 'maven'
 // https://jitpack.io/com/github/mycordaapp/helpers/<version>
 //
 //group "com.github.mycordaapp"
-version = "0.0.1"   // note, this is ignored by the JITPACK maven publishing
+//version = "0.0.1"   // note, this is ignored by the JITPACK maven publishing
 
 repositories {
     mavenCentral()
