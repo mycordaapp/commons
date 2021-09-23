@@ -2,10 +2,9 @@ package mycorda.app.helpers
 
 
 import com.natpryce.hamkrest.assertion.assertThat
-import com.natpryce.hamkrest.greaterThanOrEqualTo
 import com.natpryce.hamkrest.throws
-import org.junit.Ignore
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
 
 class SocketTesterSpec {
 
