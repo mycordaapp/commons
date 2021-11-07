@@ -6,9 +6,6 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-
-        // for Spec - http://spekframework.org/docs/latest/
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
     }
 }
 
@@ -34,6 +31,11 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
     }
 }
 
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    reports { junitXml.setEnabled(true) }
+}
+
 jar {
     // Make JAR checksums hash repeatable
     preserveFileTimestamps = false
@@ -44,7 +46,22 @@ dependencies {
     implementation("com.github.jitpack:gradle-simple:1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    //testImplementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     testImplementation("com.natpryce:hamkrest:$hamkrestVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation('org.junit.platform:junit-platform-runner:1.0.0')
+
+}
+
+
+test {
+    // set heap size for the test JVM(s)
+    minHeapSize = "128m"
+    maxHeapSize = "256m"
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+
 }
