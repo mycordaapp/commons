@@ -31,3 +31,13 @@ class TestDouble(private val chaos: Chaos) {
     }
 }
 
+
+class TestDouble2(private val chaos: Chaos) {
+    fun foo(): String {
+        chaos.chaos("errors")
+        chaos.chaos("delays")
+        return "bar"
+    }
+}
+
+

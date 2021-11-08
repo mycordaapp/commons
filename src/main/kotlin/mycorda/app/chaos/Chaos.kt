@@ -32,44 +32,21 @@ class DelayUptoNTicks(
     }
 }
 
-
-class Chaos(private val chaotics: List<Chaotic> = emptyList()) {
-    fun chaos() {
-        chaotics.forEach { it.`go ahead make my day`() }
-    }
+class Noop : Chaotic {
+    override fun `go ahead make my day`() {}
 }
 
-fun main() {
+class Chaos(private val chaotics: Map<String, List<Chaotic>>) {
+    constructor(chaotics: List<Chaotic> = emptyList()) : this(mapOf("any" to chaotics))
+    constructor(chaotic: Chaotic) : this(listOf(chaotic))
+    constructor() : this(Noop())
 
-    val chaos1 = Chaos(listOf(FailNPercent()))
-    try {
-        // statistically, no chance of passing 100 times
-        (1..100).forEach {
-            println("try #${it}")
-            chaos1.chaos()
+    fun chaos(chaosType: String = "any") {
+        val chaotics = this.chaotics[chaosType]
+        if (chaotics != null) {
+            chaotics.forEach { it.`go ahead make my day`() }
+        } else {
+            println("warning, no chaotics found for chaosType: $chaosType")
         }
-    } catch (ex: Exception) {
-        assert(ex.message == "unlucky!")
     }
-
-
-    val startTime = System.currentTimeMillis()
-    val chaos2 = Chaos(listOf(DelayUptoNTicks()))
-    (1..10).forEach { _ -> chaos2.chaos() }
-    val endTime = System.currentTimeMillis()
-
-    println("results!!")
-    println(endTime - startTime)
-    println((endTime - startTime) / PlatformTimer.clockTick())
-
-
-    // must have at least 1 tick
-    assert((startTime + PlatformTimer.clockTick()) < endTime)
-    // but shouldn;t be over this
-    assert(startTime + (PlatformTimer.clockTick() * 5L) > endTime)
-
-
-    println("aa")
-
-
 }
