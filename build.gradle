@@ -46,16 +46,15 @@ dependencies {
     implementation("com.github.jitpack:gradle-simple:1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
-    //testImplementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     testImplementation("com.natpryce:hamkrest:$hamkrestVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation('org.junit.platform:junit-platform-runner:1.0.0')
-
 }
 
 
 test {
-    // set heap size for the test JVM(s)
+    // set heap size for the test JVM(s). This library
+    // is simple and should be testable on small JVM
     minHeapSize = "128m"
     maxHeapSize = "256m"
 

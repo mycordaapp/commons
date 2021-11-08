@@ -13,8 +13,8 @@ runtime JAR).
 
 ## Adding as a dependency
 
-Maven jars are deployed using [JitPack](https://jitpack.io/),
-see [releases](https://github.com/mycordaapp/commons/releases) for version details.
+Maven jars are deployed using [JitPack](https://jitpack.io/).
+See [releases](https://github.com/mycordaapp/commons/releases) for version details.
 
 ```groovy
 //add jitpack repo
