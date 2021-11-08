@@ -5,8 +5,18 @@
 
 ## What it does?
 
-* Some base types for use in higher level code
-* Common helper and Kotlin extension functions that can be reused anywhere 
+Some common helpers and support classes. This library is lightweight and has zero dependencies (other than the Kotlin
+runtime JAR).
 
-## Adding as a dependency 
+* [Chaos](./docs/chaos.md)
+* TODO - complete this list
+
+## Adding as a dependency
+
+Maven jars are deployed using [JitPack](https://jitpack.io/),
+see [releases](https://github.com/mycordaapp/commons/releases) for details.
+
+```groovy
+implementation "com.github.mycordaapp:commons:<release>"
+```
 
