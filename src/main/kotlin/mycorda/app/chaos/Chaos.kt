@@ -9,6 +9,7 @@ import kotlin.random.Random
  * Some type of chaotic behaviour
  */
 interface Chaotic {
+    // are you lucky or not ?
     fun `go ahead make my day`()
 }
 

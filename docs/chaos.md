@@ -75,11 +75,11 @@ testDouble.foo()
 ## Using DI
 
 In many cases test code will be wired up using a DI framework, in which case it probably makes sense to inject `Chaos`
-using the DI framework. For example, if using the [Registry](https://github.com/mycordaapp/registry#readme)
+using the framework. For example, if using the [Registry](https://github.com/mycordaapp/registry#readme)
 
 ```kotlin
 // a class that uses the Registry
-class TestDoubleWithRegistry(registry: Registry) {
+class TestDoubleWithRegistry(registry: Registry = Registry()) {
     private val chaos = registry.getOrElse(Chaoss::class.java, Chaos())
     fun foo(): String {
         chaos.chaos()
@@ -96,4 +96,9 @@ registry.store(chaos)
 val testDouble = TestDoubleWithRegistry(registry)
 // foo() will have the injected chaotic behaviour stored in the registry
 testDouble.foo()
+
+// note, in this pattern we can also just create a TestDouble alone and everthing 
+// reverts to the default behaviour we code (which typically is just Noop()
+TestDoubleWithRegistry().foo()
+
 ```
