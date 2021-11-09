@@ -11,11 +11,11 @@ A basic [Spy](See http://xunitpatterns.com/Test%20Spy.html). See below
 ```kotlin
 class SystemUnderTest(private val spy: Spy = Spy()) {
     private fun foo() {
-        spy.spy("called foo")
+        spy.spy("foo")
     }
 
     fun somethingComplicated() {
-        // if some decision then call foo
+        // if some decision then call foo else skip
         foo()
     }
 }
@@ -24,6 +24,9 @@ val spy = Spy()
 val sut = SystemUnderTest(spy)
 sut.somethingComplicated()
 
-spy.secrets()
+// dump the secrets
+println(spy.secrets())
+// check the spy has the expected secrets  
+assert(spy == Spy().secret("foo"))
 ```
 
