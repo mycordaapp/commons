@@ -29,20 +29,11 @@ class ChaosTest {
         val chaos = Chaos(listOf(FailNPercent(10)))
         val attempts = 1000
         val variance = 2.0
-        var passCount = 0
-        var failCount = 0
 
         // run enough times to get some good stats
-        (1..attempts).forEach {
-            try {
-                chaos.chaos()
-                passCount++
-            } catch (ex: Exception) {
-                failCount++
-            }
-        }
-        val passPercent = (passCount * 100.0) / attempts
-        val failPercent = (failCount * 100.0) / attempts
+        val pair = collectPassFailStats(attempts, chaos)
+        val passPercent = (pair.first * 100.0) / attempts
+        val failPercent = (pair.second * 100.0) / attempts
 
         // are these statistically sensible results?
         assertThat(passPercent, greaterThan(90 - variance)) { "pass rate of $passPercent% is outside bounds" }
@@ -50,6 +41,7 @@ class ChaosTest {
         assertThat(failPercent, greaterThan(10 - variance)) { "fail rate of $failPercent% is outside bounds" }
         assertThat(failPercent, lessThan(10 + variance)) { "fail rate of $failPercent% is outside bounds" }
     }
+
 
     @Test
     fun `it should have statistically sensible delay rates`() {
@@ -126,6 +118,43 @@ class ChaosTest {
         } catch (ex: Exception) {
             fail("unexpected exception: ${ex.message}")
         }
+    }
+
+    @Test
+    fun `it should fail according to the pattern`() {
+        val pattern = "F.F.F....F" // 6 pass, 4 fail
+
+        // run against the pattern
+        val stats1 = collectPassFailStats(10, Chaos(listOf(FailWithPattern(pattern))))
+        assertThat(stats1.first, equalTo(6))
+        assertThat(stats1.second, equalTo(4))
+
+        // once pattern is exhausted just return pass
+        val stats2 = collectPassFailStats(11, Chaos(listOf(FailWithPattern(pattern))))
+        assertThat(stats2.first, equalTo(7))
+        assertThat(stats2.second, equalTo(4))
+
+        // run using default pattern of pass/fail repeated
+        val stats3 = collectPassFailStats(101, Chaos(listOf(FailWithPattern())))
+        assertThat(stats3.first, equalTo(51))
+        assertThat(stats3.second, equalTo(50))
+    }
+
+    private fun collectPassFailStats(
+        attempts: Int,
+        chaos: Chaos
+    ): Pair<Int, Int> {
+        var passCount = 0
+        var failCount = 0
+        (1..attempts).forEach { _ ->
+            try {
+                chaos.chaos()
+                passCount++
+            } catch (ex: Exception) {
+                failCount++
+            }
+        }
+        return Pair(passCount, failCount)
     }
 
 

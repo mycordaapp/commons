@@ -13,6 +13,7 @@ interface Chaotic {
     fun `go ahead make my day`()
 }
 
+
 class FailNPercent(
     private val failurePercentage: Int = 10,
     private val exception: Exception = RuntimeException("unlucky, punk"),
@@ -22,6 +23,31 @@ class FailNPercent(
         if (random.nextInt(100) < failurePercentage) throw exception
     }
 }
+
+/**
+ * Walk through a pattern - an F mean fail and '.' is a pass
+ */
+class FailWithPattern(
+    private val pattern: String = ".F".repeat(100),
+    private val exception: Exception = RuntimeException("unlucky, punk")
+) : Chaotic {
+
+    init {
+        if (pattern.replace("F", "").replace(".", "").isNotEmpty()) {
+            throw RuntimeException("invalid pattern '$pattern'")
+        }
+    }
+
+    private var index = 0;
+    override fun `go ahead make my day`() {
+        if (index < pattern.length) {
+            if (pattern[index++] == 'F') throw exception
+        } else {
+            println("FailWithPattern has exhausted the pattern")
+        }
+    }
+}
+
 
 class AlwaysFail(private val exception: Exception = RuntimeException("unlucky, punk")) : Chaotic {
     override fun `go ahead make my day`() {
