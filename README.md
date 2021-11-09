@@ -9,6 +9,7 @@ Some common helpers and support classes. This library is lightweight and has zer
 runtime JAR).
 
 * [Chaos](./docs/chaos.md)
+* [xunitpatterns.com](./docs/xunitpatterns.md)
 * TODO - complete this list !
 
 ## Adding as a dependency

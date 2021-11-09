@@ -1,5 +1,4 @@
 # Chaos
-
 [home](../README.md)
 
 A very simple framework for introducing chaotic behavior into code. As the code must be modified the approach is only
