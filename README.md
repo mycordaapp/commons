@@ -25,5 +25,5 @@ maven { url "https://jitpack.io" }
 implementation "com.github.mycordaapp:commons:<release>"
 ```
 
-_JitPack build status is at https://jitpack.io/com/github/mycordaapp/commons/<release>/build.log_
+_JitPack build status is at https://jitpack.io/com/github/mycordaapp/commons/$releaseTag/build.log_
 
