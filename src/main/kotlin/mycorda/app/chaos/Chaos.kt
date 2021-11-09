@@ -23,6 +23,12 @@ class FailNPercent(
     }
 }
 
+class AlwaysFail(private val exception: Exception = RuntimeException("unlucky, punk")) : Chaotic {
+    override fun `go ahead make my day`() {
+        throw exception
+    }
+}
+
 class DelayUptoNTicks(
     private val maxTicks: Int = 5,
     private val random: Random = Random
@@ -37,7 +43,7 @@ class Noop : Chaotic {
     override fun `go ahead make my day`() {}
 }
 
-class Chaos(private val chaotics: Map<String, List<Chaotic>>) {
+class Chaos(private val chaotics: Map<String, List<Chaotic>>, private val ignoreWarnings: Boolean = false) {
     constructor(chaotics: List<Chaotic> = emptyList()) : this(mapOf("any" to chaotics))
     constructor(chaotic: Chaotic) : this(listOf(chaotic))
     constructor() : this(Noop())
@@ -47,7 +53,7 @@ class Chaos(private val chaotics: Map<String, List<Chaotic>>) {
         if (chaotics != null) {
             chaotics.forEach { it.`go ahead make my day`() }
         } else {
-            println("warning, no chaotics found for chaosType: $chaosType")
+            if (!ignoreWarnings) println("warning, no chaotics found for chaosType: $chaosType")
         }
     }
 }
