@@ -27,4 +27,14 @@ object PlatformTimer {
 
     fun sleepForTicks(ticks: Int) = Thread.sleep(clockTick() * ticks)
 
+    /**
+     * The wait delay to apply in tests before checking asserts. Current rule
+     * is however many internal ticks are in the test case + a margin
+     * of 2 ticks
+     */
+    fun testDelayInTicks(ticksTaken: Int): Int = 2 + ticksTaken
+
+    fun testDelayInMs(ticksTaken: Int): Long = testDelayInTicks(ticksTaken) * clockTick()
+
+
 }
