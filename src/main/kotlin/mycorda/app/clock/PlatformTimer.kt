@@ -9,17 +9,18 @@ object PlatformTimer {
     /**
      * Should match the granularity of the underlying
      * clock "tick" on the platform. The idea is to be able to tune
-     * sleeps in tests  efficiently. For example on the original PC the
+     * sleeps in tests efficiently. For example on the original PC the
      * clock ticker 18.2 times a second, so the min time to wait is approx 1000/18. Thank
      * fully modern computers it normally less than this is
      */
     fun clockTick(): Long {
         val os = System.getProperty("os.name")
 
-        // tune as required
+        // tune as required - it might needs more detailed analysis of the
+        // underlying hardware
         return when (os) {
-            "Mac OS X" -> 5
-            "Linux" -> 15
+            "Mac OS X" -> 1 //  :-)
+            "Linux" -> 15   //  currently tuned for CircleCI
             else -> 20
         }
     }
