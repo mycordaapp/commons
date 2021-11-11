@@ -15,12 +15,15 @@ object PlatformTimer {
      */
     fun clockTick(): Long {
         val os = System.getProperty("os.name")
+        val circleCI = "true" == System.getenv("CIRCLECI")
 
         // tune as required - it might needs more detailed analysis of the
         // underlying hardware
         return when (os) {
             "Mac OS X" -> 1 //  :-)
-            "Linux" -> 2  //  currently tuned for CircleCI
+            "Linux" -> {
+                if (circleCI) 15 else 5 //  currently tuned for CircleCI
+            }
             else -> 20
         }
     }
