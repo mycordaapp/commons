@@ -20,7 +20,7 @@ object PlatformTimer {
         // underlying hardware
         return when (os) {
             "Mac OS X" -> 1 //  :-)
-            "Linux" -> 10   //  currently tuned for CircleCI
+            "Linux" -> 5   //  currently tuned for CircleCI
             else -> 20
         }
     }
