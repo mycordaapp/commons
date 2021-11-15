@@ -11,11 +11,11 @@ import java.util.*
  *
  * Max length is 64, which allows for easy encoding of 256 bit hashes
  */
-open class UniqueId(val id: String = UUID.randomUUID().toString()) {
+open class UniqueId(id: String = UUID.randomUUID().toString()) {
 
     init {
         // set some basic rules length rules
-        assert(id.length >= 6)
+        assert(id.isNotEmpty())
         assert(id.length <= 256 / 4)
     }
 
@@ -45,7 +45,16 @@ open class UniqueId(val id: String = UUID.randomUUID().toString()) {
          * Build a random string in a 'booking reference' style,
          * e.g. `BZ13FG`
          */
+        @Deprecated("use alphanumeric ")
         fun random(length: Int = 6): UniqueId {
+            return UniqueId(String.random(length))
+        }
+
+        /**
+         * Build a random string in a 'booking reference' style,
+         * e.g. `BZ13FG`
+         */
+        fun alphanumeric(length: Int = 6): UniqueId {
             return UniqueId(String.random(length))
         }
     }
