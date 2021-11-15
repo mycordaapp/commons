@@ -8,7 +8,6 @@ import mycorda.app.clock.PlatformTimer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
 import java.lang.Exception
-import javax.swing.plaf.synth.SynthTextAreaUI
 
 class ChaosTest {
 
@@ -41,7 +40,6 @@ class ChaosTest {
         assertThat(failPercent, greaterThan(10 - variance)) { "fail rate of $failPercent% is outside bounds" }
         assertThat(failPercent, lessThan(10 + variance)) { "fail rate of $failPercent% is outside bounds" }
     }
-
 
     @Test
     fun `it should have statistically sensible delay rates`() {
@@ -156,6 +154,4 @@ class ChaosTest {
         }
         return Pair(passCount, failCount)
     }
-
-
 }

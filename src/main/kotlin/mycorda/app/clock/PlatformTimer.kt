@@ -17,8 +17,8 @@ object PlatformTimer {
         val os = System.getProperty("os.name")
         val circleCI = "true" == System.getenv("CIRCLECI")
 
-        // tune as required - it might needs more detailed analysis of the
-        // underlying hardware
+        // tune as required - it might need some more detailed analysis
+        // of the underlying hardware
         return when (os) {
             "Mac OS X" -> 1 //  :-)
             "Linux" -> {
