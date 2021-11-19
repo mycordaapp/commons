@@ -11,7 +11,7 @@ import java.util.*
  *
  * Max length is 64, which allows for easy encoding of 256 bit hashes
  */
-open class UniqueId(id: String = UUID.randomUUID().toString()) {
+open class UniqueId(private val id: String = UUID.randomUUID().toString()) {
 
     init {
         // set some basic rules length rules
@@ -58,4 +58,15 @@ open class UniqueId(id: String = UUID.randomUUID().toString()) {
             return UniqueId(String.random(length))
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        return if (other is UniqueId) {
+            this.id == other.id
+        } else false
+    }
+
+    override fun hashCode(): Int = id.hashCode()
+
+    override fun toString(): String = id
+
 }
