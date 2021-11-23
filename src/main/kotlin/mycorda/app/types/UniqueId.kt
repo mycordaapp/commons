@@ -11,7 +11,7 @@ import java.util.*
  *
  * Max length is 64, which allows for easy encoding of 256 bit hashes
  */
-open class UniqueId(private val id: String = UUID.randomUUID().toString()) {
+class UniqueId(private val id: String = UUID.randomUUID().toString()) {
 
     init {
         // set some basic rules length rules
