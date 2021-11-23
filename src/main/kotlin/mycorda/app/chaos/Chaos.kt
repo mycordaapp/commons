@@ -1,6 +1,6 @@
 package mycorda.app.chaos
 
-import mycorda.app.clock.PlatformTimer
+import mycorda.app.clock.PlatformTick
 import java.lang.Exception
 import java.lang.RuntimeException
 import kotlin.random.Random
@@ -56,12 +56,14 @@ class AlwaysFail(private val exception: Exception = RuntimeException("unlucky, p
 }
 
 class DelayUptoNTicks(
-    private val maxTicks: Int = 5,
+    private val maxDelay: PlatformTick = PlatformTick.of(5),
+    private val minDelay: PlatformTick = PlatformTick.of(0),
     private val random: Random = Random
 ) : Chaotic {
     override fun `go ahead make my day`() {
-        val ticks = random.nextInt(maxTicks)
-        PlatformTimer.sleepForTicks(ticks)
+        val overallDelayMs = maxDelay.milliseconds() - minDelay.milliseconds()
+        val randomDelay = random.nextLong(overallDelayMs)
+        Thread.sleep(minDelay.milliseconds() + randomDelay)
     }
 }
 

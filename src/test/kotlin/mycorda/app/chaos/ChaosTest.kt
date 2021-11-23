@@ -4,6 +4,7 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.greaterThan
 import com.natpryce.hamkrest.lessThan
+import mycorda.app.clock.PlatformTick
 import mycorda.app.clock.PlatformTimer
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
@@ -49,7 +50,7 @@ class ChaosTest {
         var maxDelay = 0L
         var minDelay = Long.MAX_VALUE
 
-        val chaos = Chaos(DelayUptoNTicks(maxTicks))
+        val chaos = Chaos(DelayUptoNTicks(PlatformTick.of(maxTicks)))
 
         // run enough times to get some good stats
         (1..attempts).forEach { _ ->
@@ -92,7 +93,7 @@ class ChaosTest {
         val chaos = Chaos(
             mapOf(
                 "errors" to listOf(FailNPercent(10)),
-                "delays" to listOf(DelayUptoNTicks(5)),
+                "delays" to listOf(DelayUptoNTicks(PlatformTick.of(5))),
                 "noop" to listOf(Noop())
             )
         )

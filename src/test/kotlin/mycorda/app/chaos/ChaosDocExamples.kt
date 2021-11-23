@@ -1,5 +1,7 @@
 package mycorda.app.chaos
 
+import mycorda.app.clock.PlatformTick
+
 /**
  * Code used in the docs
  */
@@ -10,7 +12,7 @@ class ChaosDocExamples {
         val chaos = Chaos(
             listOf(
                 // average delay of 1 "platform" tick (tuned to the basic tick rate on the OS/Hardware)
-                DelayUptoNTicks(2),
+                DelayUptoNTicks(PlatformTick.of(2)),
                 // fail statistically 1 in 10 timed
                 FailNPercent(10)
 

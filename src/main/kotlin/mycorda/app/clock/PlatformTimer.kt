@@ -38,6 +38,13 @@ object PlatformTimer {
     fun testDelayInTicks(ticksTaken: Int): Int = 2 + ticksTaken
 
     fun testDelayInMs(ticksTaken: Int): Long = testDelayInTicks(ticksTaken) * clockTick()
+}
 
+data class PlatformTick(private val ticks: Int) {
+    fun ticks(): Int = ticks
+    fun milliseconds(): Long = ticks * PlatformTimer.clockTick()
 
+    companion object {
+        fun of(ticks: Int): PlatformTick = PlatformTick(ticks)
+    }
 }

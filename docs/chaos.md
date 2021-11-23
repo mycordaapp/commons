@@ -26,7 +26,7 @@ Setup some chaotic behaviours
  val chaos = Chaos(
     listOf(
         // average delay of 1 "platform" tick (tuned to the basic tick rate on the OS/Hardware)
-        DelayUptoNTicks(2),
+        DelayUptoNTicks(PlatformTick.of(1)),
         // fail statistically 1 in 10 times
         FailNPercent(10)
     )
@@ -61,14 +61,12 @@ class TestDoubleWithChaosTypes(private val chaos: Chaos) {
 val chaos = Chaos(
     mapOf(
         "errors" to listOf(FailNPercent(10)),
-        "delays" to listOf(DelayUptoNTicks(5)),
+        "delays" to listOf(DelayUptoNTicks(PlatformTick.of(5))),
     )
 )
 
 val testDouble = TestDoubleWithChaosTypes(chaos)
 testDouble.foo()
-
-
 ```
 
 ## Using DI
