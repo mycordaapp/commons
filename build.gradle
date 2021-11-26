@@ -53,7 +53,7 @@ test {
     // set heap size for the test JVM(s). This library
     // is simple and should be testable on small JVM
     minHeapSize = "64m"
-    maxHeapSize = "256m"
+    maxHeapSize = "512m"
 
     testLogging {
         events "passed", "skipped", "failed"
