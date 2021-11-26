@@ -27,7 +27,7 @@ class ChaosTest {
     @Test
     fun `it should have statistically sensible pass and failure rates`() {
         val chaos = Chaos(listOf(FailNPercent(10)))
-        val attempts = 1000
+        val attempts = 2000
         val variance = 2.0
 
         // run enough times to get some good stats
