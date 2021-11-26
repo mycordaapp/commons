@@ -52,7 +52,7 @@ dependencies {
 test {
     // set heap size for the test JVM(s). This library
     // is simple and should be testable on small JVM
-    minHeapSize = "128m"
+    minHeapSize = "64m"
     maxHeapSize = "256m"
 
     testLogging {
