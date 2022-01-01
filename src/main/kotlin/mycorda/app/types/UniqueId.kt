@@ -10,16 +10,24 @@ import java.util.*
  * functions.
  *
  * Max length is 64, which allows for easy encoding of 256 bit hashes
+ * The character set is limited to:
+ *    - a..z
+ *    - A..Z
+ *    - 0..9
+ *    - hyphen (-), underscore (_) and colon(:)
  */
 class UniqueId(private val id: String = UUID.randomUUID().toString()) {
 
     init {
         // set some basic rules length rules
-        assert(id.isNotEmpty())
-        assert(id.length <= 256 / 4)
+        if (id.isEmpty()) throw RuntimeException("UniqueId cannot be empty")
+        if (id.length > 64) throw RuntimeException("UniqueId must be 64 characters or less")
+        if (!pattern.matches(id)) throw RuntimeException("Invalid characters. Only alphanumeric, hyphen (-), underscore (_) and colon(:) supported")
     }
 
     companion object {
+        val pattern = Regex("^[a-zA-Z0-9_:\\-]+\$")
+
         /**
          * From a random UUID
          */
