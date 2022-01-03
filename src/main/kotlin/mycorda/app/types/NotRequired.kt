@@ -1,7 +1,8 @@
 package mycorda.app.types
 
 /**
- * For places where generics is demanding in instance, but we don't need anything
+ * For places where generics is demanding something to check against, but we don't actually
+ * need anything.
  */
 class NotRequired {
     companion object {

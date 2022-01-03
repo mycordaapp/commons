@@ -49,6 +49,29 @@ fun MapOfAny.unpackLong(key: String): Long {
     }
 }
 
+fun MapOfAny.unpackString(key: String): String {
+    val value = this[key]
+    return when (value) {
+        is String -> {
+            value
+        }
+        is StringBuilder -> {
+            value.toString()
+        }
+        is StringBuffer -> {
+            value.toString()
+        }
+        else -> {
+            throw java.lang.RuntimeException("value ${value} for key $key cannot be converted to a String")
+        }
+    }
+}
+
+fun <T> MapOfAny.castTo (key: String) : T {
+    @Suppress("UNCHECKED_CAST")
+    return this[key] as T
+}
+
 
 interface ToMapOfAny {
     fun toMap(): MapOfAny
