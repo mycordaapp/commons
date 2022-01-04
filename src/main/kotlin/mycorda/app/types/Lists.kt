@@ -4,9 +4,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * Some common type safe list. By avoid direct use of generics
+ * Some common type safe lists. By avoiding direct use of generics
  * these work better with serialisers as there is no longer the problem
- * of "erasures" losing information
+ * of "erasures" losing information.
  */
 
 class StringList(data: List<String>) : ArrayList<String>(data)
@@ -16,7 +16,7 @@ class UUIDList(data: List<UUID>) : ArrayList<UUID>(data)
 class UniqueIdList(data: List<UniqueId>) : ArrayList<UniqueId>(data)
 
 /**
- * A simple (and slightly inefficient way) of creating a truely immutable
+ * A simple (and slightly inefficient) way of creating a truely immutable
  * list
  */
 abstract class SimpleImmutableList<T>(items: List<T>) : List<T> {
@@ -46,10 +46,10 @@ abstract class SimpleImmutableList<T>(items: List<T>) : List<T> {
     override fun subList(fromIndex: Int, toIndex: Int): List<T> = items.subList(fromIndex, toIndex)
 }
 
-class ImmutableStringList(data: List<String>) : ArrayList<String>(data)
-class ImmutableLongList(data: List<Long>) : ArrayList<Long>(data)
-class ImmutableDoubleList(data: List<Double>) : ArrayList<Double>(data)
-class ImmutableUUIDList(data: List<UUID>) : ArrayList<UUID>(data)
-class ImmutableUniqueIdList(data: List<UniqueId>) : ArrayList<UniqueId>(data)
+class ImmutableStringList(data: List<String>) : SimpleImmutableList<String>(data)
+class ImmutableLongList(data: List<Long>) : SimpleImmutableList<Long>(data)
+class ImmutableDoubleList(data: List<Double>) : SimpleImmutableList<Double>(data)
+class ImmutableUUIDList(data: List<UUID>) : SimpleImmutableList<UUID>(data)
+class ImmutableUniqueIdList(data: List<UniqueId>) : SimpleImmutableList<UniqueId>(data)
 
 
