@@ -44,6 +44,22 @@ abstract class SimpleImmutableList<T>(items: List<T>) : List<T> {
     override fun listIterator(index: Int): ListIterator<T> = items.listIterator(index)
 
     override fun subList(fromIndex: Int, toIndex: Int): List<T> = items.subList(fromIndex, toIndex)
+
+    override fun equals(other: Any?): Boolean {
+        return if (other is SimpleImmutableList<*>) {
+            this::class == other::class && this.items == other.items
+        } else {
+            false
+        }
+    }
+
+    override fun hashCode(): Int {
+        return items.hashCode()
+    }
+
+    override fun toString(): String {
+        return items.toString()
+    }
 }
 
 class ImmutableStringList(data: List<String>) : SimpleImmutableList<String>(data)
