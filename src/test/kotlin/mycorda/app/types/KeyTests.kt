@@ -1,5 +1,7 @@
 package mycorda.app.types
 
+import com.natpryce.hamkrest.assertion.assertThat
+import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -25,6 +27,15 @@ class KeyTests {
         assertDoesNotThrow { Key.fromString("abcdefghijklmnopqrstuvwyyz".toUpperCase()) }
         assertDoesNotThrow { Key.fromString("1234567890") }
         assertDoesNotThrow { Key.fromString("-_:/") }
+    }
+
+    @Test
+    fun `should build from UniqueId`() {
+        val id = UniqueId.randomUUID()
+        val key = Key.fromUniqueId(id)
+        assertDoesNotThrow { Key.fromUniqueId(UniqueId.randomUUID()) }
+        assertThat(Key.fromUniqueId(id), equalTo(key))
+        assertThat(id.toString(), equalTo(key.toString()))
     }
 
     @Test

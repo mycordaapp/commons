@@ -35,6 +35,13 @@ open class Key(val key: String) {
             return Key(id.toString())
         }
 
+        /**
+         * From a provided UniqueId
+         */
+        fun fromUniqueId(id: UniqueId): Key {
+            return Key(id.toString())
+        }
+
 
         /**
          * Build a random string in a 'booking reference' style,
